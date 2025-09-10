@@ -3,79 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AutoZone – Car Sales</title>
+  <title>Car Dealership Dashboard</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f4f4f4;
+      background: #f1f3f6;
     }
 
     header {
-      background-color: #222;
+      background-color: #2c3e50;
       color: white;
-      padding: 1rem;
+      padding: 1rem 2rem;
       text-align: center;
     }
 
-    .filter {
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .filter select {
-      padding: 0.5rem;
-      font-size: 1rem;
-    }
-
-    .car-listings {
+    nav {
+      background-color: #34495e;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      padding: 1rem;
+      gap: 2rem;
+      padding: 1rem 0;
     }
 
-    .car-card {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      width: 280px;
-      margin: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    .car-card:hover {
-      transform: scale(1.02);
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 2rem;
     }
 
-    .car-card img {
-      width: 100%;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
+    .box {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: 0.3s;
     }
 
-    .car-info {
-      padding: 1rem;
+    .box:hover {
+      transform: translateY(-3px);
     }
 
-    .car-info h3 {
-      margin-top: 0;
+    .box h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+
+    .value {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #16a085;
+    }
+
+    .graph {
+      height: 200px;
+      position: relative;
+    }
+
+    .bar {
+      height: 100%;
+      width: 20%;
+      background: #3498db;
+      margin: 0 5%;
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+      color: white;
+    }
+
+    .bar1 { left: 10%; height: 60%; }
+    .bar2 { left: 35%; height: 80%; background: #1abc9c; }
+    .bar3 { left: 60%; height: 50%; background: #9b59b6; }
+
+    .description {
+      background-color: white;
+      margin: 2rem;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .description h3 {
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+
+    .description p {
+      font-size: 1rem;
+      line-height: 1.6;
     }
 
     footer {
-      background-color: #222;
-      color: white;
       text-align: center;
       padding: 1rem;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
+      background: #2c3e50;
+      color: white;
+      margin-top: 2rem;
     }
 
-    @media (max-width: 600px) {
-      .car-card {
-        width: 90%;
+    @media screen and (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .bar {
+        width: 25%;
       }
     }
   </style>
@@ -83,89 +129,68 @@
 <body>
 
   <header>
-    <h1>AutoZone – Car Sales</h1>
+    <h1>Car Dealership Dashboard</h1>
   </header>
 
-  <div class="filter">
-    <label for="brand">Filter by Brand:</label>
-    <select id="brand" onchange="filterCars()">
-      <option value="all">All</option>
-      <option value="Toyota">Toyota</option>
-      <option value="Honda">Honda</option>
-      <option value="Ford">Ford</option>
-    </select>
-  </div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Inventory</a>
+    <a href="#">Sales</a>
+    <a href="#">Reports</a>
+    <a href="#">Settings</a>
+  </nav>
 
-  <section class="car-listings" id="carListings">
-    <!-- Cars will be injected here by JS -->
+  <section class="dashboard">
+    <div class="box" id="carSalesBox">
+      <h2>Car Sales</h2>
+      <div class="value" id="carSalesCount">--</div>
+    </div>
+
+    <div class="box" id="bikeSalesBox">
+      <h2>Bike Sales</h2>
+      <div class="value" id="bikeSalesCount">--</div>
+    </div>
+
+    <div class="box">
+      <h2>Sales Graph</h2>
+      <div class="graph">
+        <div class="bar bar1">Jan</div>
+        <div class="bar bar2">Feb</div>
+        <div class="bar bar3">Mar</div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h2>Cars</h2>
+      <div class="value">120 in stock</div>
+    </div>
+
+    <div class="box">
+      <h2>Bikes</h2>
+      <div class="value">75 in stock</div>
+    </div>
+  </section>
+
+  <section class="description">
+    <h3>About This Dashboard</h3>
+    <p>
+      This dashboard is designed for car dealerships to quickly monitor vehicle sales and inventory.
+      It includes key metrics like car and bike sales, stock levels, and a simple sales graph for performance insight.
+      Use the navigation menu above to explore more features such as managing inventory, viewing detailed reports, and adjusting dealership settings.
+    </p>
   </section>
 
   <footer>
-    © 2025 AutoZone. All rights reserved.
+    &copy; 2025 Car Dealership System. All rights reserved.
   </footer>
 
   <script>
-    const cars = [
-      {
-        brand: 'Toyota',
-        model: 'Camry',
-        year: 2022,
-        price: '$22,000',
-        image: 'https://source.unsplash.com/featured/?toyota,car'
-      },
-      {
-        brand: 'Honda',
-        model: 'Civic',
-        year: 2023,
-        price: '$24,000',
-        image: 'https://source.unsplash.com/featured/?honda,car'
-      },
-      {
-        brand: 'Ford',
-        model: 'Mustang',
-        year: 2021,
-        price: '$29,000',
-        image: 'https://source.unsplash.com/featured/?ford,car'
-      },
-      {
-        brand: 'Toyota',
-        model: 'Corolla',
-        year: 2020,
-        price: '$18,500',
-        image: 'https://source.unsplash.com/featured/?toyota,corolla'
-      }
-    ];
+    // Simulated data fetch (you can connect to real APIs later)
+    const carSales = 154;
+    const bikeSales = 89;
 
-    function renderCars(carList) {
-      const container = document.getElementById('carListings');
-      container.innerHTML = '';
-      carList.forEach(car => {
-        const carCard = `
-          <div class="car-card">
-            <img src="${car.image}" alt="${car.brand} ${car.model}" />
-            <div class="car-info">
-              <h3>${car.brand} ${car.model}</h3>
-              <p>Year: ${car.year}</p>
-              <p>Price: ${car.price}</p>
-            </div>
-          </div>
-        `;
-        container.innerHTML += carCard;
-      });
-    }
-
-    function filterCars() {
-      const brand = document.getElementById('brand').value;
-      if (brand === 'all') {
-        renderCars(cars);
-      } else {
-        const filtered = cars.filter(car => car.brand === brand);
-        renderCars(filtered);
-      }
-    }
-
-    // Initial render
-    renderCars(cars);
+    document.getElementById("carSalesCount").innerText = carSales;
+    document.getElementById("bikeSalesCount").innerText = bikeSales;
   </script>
 
 </body>
