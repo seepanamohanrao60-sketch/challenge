@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🖥️ Laptop Service Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ece9e6, #ffffff);
+      color: #333;
+    }
+
+    header {
+      background-color: #34495e;
+      color: #fff;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    nav {
+      background-color: #2c3e50;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #1abc9c;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 2rem;
+    }
+
+    .box {
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .box:hover {
+      transform: translateY(-5px);
+    }
+
+    .box h2 {
+      font-size: 1.2rem;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+
+    .value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #2980b9;
+    }
+
+    .emoji {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .graph {
+      height: 200px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      padding-top: 1rem;
+    }
+
+    .bar {
+      width: 20%;
+      text-align: center;
+      color: white;
+      border-radius: 5px 5px 0 0;
+      animation: grow 1s ease-out forwards;
+    }
+
+    .bar1 {
+      height: 70%;
+      background-color: #3498db;
+    }
+
+    .bar2 {
+      height: 50%;
+      background-color: #1abc9c;
+    }
+
+    .bar3 {
+      height: 90%;
+      background-color: #e67e22;
+    }
+
+    @keyframes grow {
+      from { height: 0; }
+      to { transform: scaleY(1); }
+    }
+
+    .bar-label {
+      margin-top: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .description {
+      background-color: white;
+      margin: 2rem;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #34495e;
+      color: white;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    🛠️ Laptop Service Center Dashboard
+  </header>
+
+  <nav>
+    <a href="#">🏠 Home</a>
+    <a href="#">🧰 Services</a>
+    <a href="#">📦 Inventory</a>
+    <a href="#">📈 Reports</a>
+    <a href="#">⚙️ Settings</a>
+  </nav>
+
+  <section class="dashboard">
+    <div class="box">
+      <div class="emoji">💻</div>
+      <h2>Laptops Repaired</h2>
+      <div class="value" id="repairedCount">--</div>
+    </div>
+
+    <div class="box">
+      <div class="emoji">⏳</div>
+      <h2>Pending Repairs</h2>
+      <div class="value" id="pendingCount">--</div>
+    </div>
+
+    <div class="box">
+      <div class="emoji">📦</div>
+      <h2>Delivered</h2>
+      <div class="value" id="deliveredCount">--</div>
+    </div>
+
+    <div class="box">
+      <div class="emoji">📊</div>
+      <h2>Status Graph</h2>
+      <div class="graph">
+        <div class="bar bar1">
+          <div class="bar-label">Jan</div>
+        </div>
+        <div class="bar bar2">
+          <div class="bar-label">Feb</div>
+        </div>
+        <div class="bar bar3">
+          <div class="bar-label">Mar</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="emoji">🖥️</div>
+      <h2>Laptops in Stock</h2>
+      <div class="value">45 units</div>
+    </div>
+  </section>
+
+  <section class="description">
+    <h3>📋 About This Dashboard</h3>
+    <p>
+      This dashboard provides a real-time overview of laptop service operations. It displays how many laptops have been repaired, are currently pending, or have been delivered to customers.
+      The status graph helps you visualize service trends over time. Inventory levels are also shown to ensure quick decision-making. Use the navigation menu to access different areas of the service center.
+    </p>
+  </section>
+
+  <footer>
+    &copy; 2025 TechCare Laptop Services. All rights reserved.
+  </footer>
+
+  <script>
+    // Simulated service data
+    const repaired = 124;
+    const pending = 31;
+    const delivered = 110;
+
+    document.getElementById("repairedCount").textContent = repaired;
+    document.getElementById("pendingCount").textContent = pending;
+    document.getElementById("deliveredCount").textContent = delivered;
+  </script>
+
+</body>
+</html>
